@@ -1,0 +1,9 @@
+#lat{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 2.5%;
+    background-color: #92B35C;
+    align-items: center;
+    justify-content: start;
+  }

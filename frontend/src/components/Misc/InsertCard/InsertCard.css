@@ -1,0 +1,36 @@
+form{
+    width: 75%;
+    height: 50%;
+    background-color: white;
+    font-size: 13px;
+    margin: 10px;
+    box-shadow: 5px;
+    padding: 0px;
+}
+
+.insertCard{
+    background-color: white;
+    padding-right: 200px;
+    padding-left: 0px;  
+}
+
+.input{
+    background-color: transparent;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: black;
+    border-radius: 0;
+    font-size: 13px;
+}
+
+.TittleCard{
+    background-color: #d1e7ce;
+    height: 14%;
+    font-size: 18px;
+}
+
+label{
+    font-size: 15px;
+}
+

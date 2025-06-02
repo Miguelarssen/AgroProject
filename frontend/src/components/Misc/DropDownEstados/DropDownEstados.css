@@ -1,0 +1,18 @@
+.dropdown-menu {
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 150px
+}
+.dropdown{
+    background-color: transparent;
+    height: 50px !important;
+    border-color: black;
+    border-radius: 0;
+    font-size: 13px;
+    margin-left: 15px;
+}
+
+.divDropdown{
+    border-bottom-width: 1px;
+    width: 100%;
+}
