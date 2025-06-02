@@ -21,9 +21,10 @@ import com.azagros2.prod.produtor.DTO.ProdutorListagemDTO;
 import com.azagros2.prod.produtor.DTO.ProdutorResponseDTO;
 import com.azagros2.prod.repository.ProdutorRepository;
 import com.azagros2.prod.repository.ProdutorSpec;
+import com.azagros2.prod.produtor.DTO.ProdutorAtualizaDTO;
 import com.azagros2.prod.produtor.DTO.ProdutorCadastroDTO;
 
-
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 
@@ -35,6 +36,7 @@ public class ProdutorController {
     private ProdutorRepository repository;
 
     @GetMapping
+    @Transactional
     public ResponseEntity<List<ProdutorListagemDTO>> listar(   
         @RequestParam(required = false) String nome,
         @RequestParam(required = false) Estado estado,
@@ -59,7 +61,8 @@ public class ProdutorController {
     }
 
     @PostMapping
-    public ResponseEntity cadastrar(@RequestBody @Valid ProdutorCadastroDTO dados, UriComponentsBuilder uriBuilder){
+    @Transactional  
+    public ResponseEntity<ProdutorResponseDTO> cadastrar(@RequestBody @Valid ProdutorCadastroDTO dados, UriComponentsBuilder uriBuilder){
         var produtor = new Produtor(dados); 
         repository.save(produtor);
 
@@ -68,7 +71,16 @@ public class ProdutorController {
 
         return ResponseEntity.created(uri).body(new ProdutorResponseDTO(produtor));        
     }
-    //@PutMapping
+    
+    @PutMapping
+    @Transactional
+    public ResponseEntity<ProdutorResponseDTO> atualizar(@RequestBody @Valid ProdutorAtualizaDTO dados){
+        var produtor = repository.getReferenceById(dados.id());
+        produtor.atualizarInfo(dados);
+        
+        return ResponseEntity.ok(new ProdutorResponseDTO(produtor));
+    }
+
     //@DeleteMapping
 
 }

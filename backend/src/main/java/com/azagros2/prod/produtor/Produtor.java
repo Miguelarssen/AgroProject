@@ -2,6 +2,7 @@ package com.azagros2.prod.produtor;
 
 import java.time.LocalDate;
 
+import com.azagros2.prod.produtor.DTO.ProdutorAtualizaDTO;
 import com.azagros2.prod.produtor.DTO.ProdutorCadastroDTO;
 
 import jakarta.persistence.Entity;
@@ -38,7 +39,6 @@ public class Produtor {
         this.dataCadastro = dados.dataCadastro();
     }
     
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
@@ -50,5 +50,23 @@ public class Produtor {
     @Enumerated(EnumType.STRING)
     private Estado estado;
     private LocalDate dataCadastro;
+
+    public void atualizarInfo(@Valid ProdutorAtualizaDTO dados){
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.municipio() != null) {
+            this.municipio = dados.municipio();
+        }
+        if (dados.comunidade() != null) {
+            this.comunidade = dados.comunidade();
+        }
+        if (dados.estado() != null) {
+            this.estado = dados.estado();
+        }
+    }
 
 }
