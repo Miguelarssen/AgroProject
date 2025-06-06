@@ -32,7 +32,6 @@ export function ProdutorCreate(){
             dataCadastro
         }
 
-        console.log("JSON enviado:", JSON.stringify(produtor, null, 2)); // Exibe o JSON formatado
         mutate(produtor)
 
         setNome("");
@@ -43,12 +42,9 @@ export function ProdutorCreate(){
         setEstado("");
         setDataCadastro(null);
 
-        // Exibir mensagem de sucesso por 3 segundos
         setSuccessMessage(true);
         setTimeout(() => setSuccessMessage(false), 3000);
     };
-
-    const [visible, setVisible] = useState(false);
 
     return(
 

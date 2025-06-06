@@ -1,6 +1,6 @@
 export interface Produtores{
 
-    Id?: number,
+    id: number,
     nome: string,
     telefone: string,
     municipio: string,

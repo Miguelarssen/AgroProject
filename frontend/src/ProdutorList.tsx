@@ -3,21 +3,21 @@ import './style/ProdutorList.css'
 import Table from 'react-bootstrap/Table';
 
 import { useProdutor } from './hooks/UseProdutor.ts';
-import { ProdutorTable } from './components/Produtores/ProdutorTable.tsx';
 import { LatBar } from './components/Misc/LatBar/LatBar.tsx';
 import { useState } from 'react';
 import { DropDownEstados } from './components/Misc/DropDownEstados/DropDownEstados.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-
+import { Produtores } from './interface/Produtores.ts';
 
 export function ProdutorList() {
 
   const [nome, setNome] = useState('');
   const [estado, setEstado] = useState('');
   const [municipio, setMunicipio] = useState('');
-  
+  const [selectedId, setSelectedId] = useState<number | null>(null); // estado para selecionado
+
   const { data } = useProdutor(nome, estado, municipio);
 
   return (
@@ -64,19 +64,22 @@ export function ProdutorList() {
           <div className='tabelDiv'>
             <Table striped hover responsive className='w-100 h-100 m-0 text-nowrap tabel'>
               <thead>
-                <tr>  
+                <tr>
                   <th className="text-truncate">Nome</th>
                   <th className="text-truncate">Telefone</th>
                   <th className="text-truncate">Município</th>
                   <th className="text-truncate">Comunidade</th>
-                  <th className="text-truncate">Familiar</th> 
+                  <th className="text-truncate">Familiar</th>
                   <th className="text-truncate">Estado</th>
                 </tr>
               </thead>
               <tbody>
-                {data?.map((produtor) => 
-                  <ProdutorTable 
-                    produtor={produtor} 
+                {data?.map((produtor) =>
+                  <ProdutorTable
+                    key={produtor.id}
+                    produtor={produtor}
+                    selected={produtor.id === selectedId}
+                    onSelect={() => selectLine(produtor.id)}
                   />
                 )}
               </tbody>
@@ -87,4 +90,36 @@ export function ProdutorList() {
     </div>
 
   )
+
+  function ProdutorTable({
+    produtor,
+    selected,
+    onSelect,
+  }: {
+    produtor: Produtores;
+    selected: boolean;
+    onSelect: () => void;
+  }) {
+    return (
+      <tr
+        onClick={onSelect}
+        style={{
+          cursor: 'pointer',
+          fontSize: selected ? '50px' : '16px'
+        }}>
+
+        <td className="text-truncate">{produtor.nome}</td>
+        <td className="text-truncate">{produtor.telefone}</td>
+        <td className="text-truncate">{produtor.municipio}</td>
+        <td className="text-truncate">{produtor.comunidade}</td>
+        <td className="text-truncate">{produtor.familiar}</td>
+        <td className="text-truncate">{produtor.estado}</td>
+      </tr>
+    );
+  }
+
+  function selectLine(id: number) {
+    setSelectedId(id);
+  }
+
 }
