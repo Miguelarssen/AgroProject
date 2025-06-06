@@ -62,7 +62,7 @@ export function ProdutorList() {
 
         <main className='d-flex flex-grow-1 flex-column justify-content-end'>
           <div className='tabelDiv'>
-            <Table striped hover responsive className='w-100 h-100 m-0 text-nowrap tabel'>
+            <div className='tabela'>
               <thead>
                 <tr>
                   <th className="text-truncate">Nome</th>
@@ -83,7 +83,7 @@ export function ProdutorList() {
                   />
                 )}
               </tbody>
-            </Table>
+            </div>
           </div>
         </main>
       </div>
@@ -91,35 +91,32 @@ export function ProdutorList() {
 
   )
 
-  function ProdutorTable({
-    produtor,
-    selected,
-    onSelect,
-  }: {
-    produtor: Produtores;
-    selected: boolean;
-    onSelect: () => void;
-  }) {
-    return (
-      <tr
-        onClick={onSelect}
-        style={{
-          cursor: 'pointer',
-          fontSize: selected ? '50px' : '16px'
-        }}>
+  function ProdutorTable({produtor, selected, onSelect,}: 
+    {
+      produtor: Produtores;
+      selected: boolean;
+      onSelect: () => void;
+    }) 
+    {
+      return (
+        <tr
+          onClick={onSelect}
+          className={selected ? 'selected-row' : ''}
+          style={{
+            cursor: 'pointer',
+          }}>
 
-        <td className="text-truncate">{produtor.nome}</td>
-        <td className="text-truncate">{produtor.telefone}</td>
-        <td className="text-truncate">{produtor.municipio}</td>
-        <td className="text-truncate">{produtor.comunidade}</td>
-        <td className="text-truncate">{produtor.familiar}</td>
-        <td className="text-truncate">{produtor.estado}</td>
-      </tr>
-    );
+          <td className="text-truncate">{produtor.nome}</td>
+          <td className="text-truncate">{produtor.telefone}</td>
+          <td className="text-truncate">{produtor.municipio}</td>
+          <td className="text-truncate">{produtor.comunidade}</td>
+          <td className="text-truncate">{produtor.familiar}</td>
+          <td className="text-truncate">{produtor.estado}</td>
+        </tr>
+      );
   }
 
   function selectLine(id: number) {
-    setSelectedId(id);
+    setSelectedId(prevId => (prevId === id ? null : id));
   }
-
 }
