@@ -1,15 +1,17 @@
 import './style/App.css'
 import './style/ProdutorList.css'
-import Table from 'react-bootstrap/Table';
+import './style/index.css' // <- aqui importa o Tailwind
 
 import { useProdutor } from './hooks/UseProdutor.ts';
 import { LatBar } from './components/Misc/LatBar/LatBar.tsx';
 import { useState } from 'react';
 import { DropDownEstados } from './components/Misc/DropDownEstados/DropDownEstados.tsx';
+import { Produtores } from './interface/Produtores.ts';
+import edit from "./assets/edit.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-import { Produtores } from './interface/Produtores.ts';
+
 
 export function ProdutorList() {
 
@@ -53,16 +55,20 @@ export function ProdutorList() {
 
                 <DropDownEstados value={estado} onChange={setEstado} placeholder="Filtrar por estado" />
 
-            </div>
+              </div>
             </form>
 
           </nav>
 
         </header>
-
+        
         <main className='d-flex flex-grow-1 flex-column justify-content-end'>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded buttonEdit">
+          <img className="d-flex editImg" src={edit} />
+        </button>
+
           <div className='tabelDiv'>
-            <div className='tabela'>
+            <table className='tabela'>
               <thead>
                 <tr>
                   <th className="text-truncate">Nome</th>
@@ -83,7 +89,7 @@ export function ProdutorList() {
                   />
                 )}
               </tbody>
-            </div>
+            </table>
           </div>
         </main>
       </div>
