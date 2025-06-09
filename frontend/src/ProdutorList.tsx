@@ -117,6 +117,6 @@ export function ProdutorList() {
   }
 
   function selectLine(id: number) {
-    setSelectedId(prevId => (prevId === id ? null : id));
+    setSelectedId(id);
   }
 }
