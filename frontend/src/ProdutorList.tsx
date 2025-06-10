@@ -1,36 +1,111 @@
-import './style/App.css'
-import './style/ProdutorList.css'
-import './style/index.css' // <- aqui importa o Tailwind
+import './style/App.css';
+import './style/ProdutorList.css';
+import './style/index.css'; // Tailwind import
 
 import { useProdutor } from './hooks/UseProdutor.ts';
 import { LatBar } from './components/Misc/LatBar/LatBar.tsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DropDownEstados } from './components/Misc/DropDownEstados/DropDownEstados.tsx';
 import { Produtores } from './interface/Produtores.ts';
 import edit from "./assets/edit.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export function ProdutorList() {
 
   const [nome, setNome] = useState('');
   const [estado, setEstado] = useState('');
   const [municipio, setMunicipio] = useState('');
-  const [selectedId, setSelectedId] = useState<number | null>(null); // estado para selecionado
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [editVisible, setEditVisible] = useState(false);
 
   const { data } = useProdutor(nome, estado, municipio);
 
+  function ProdutorTable({ produtor, selected, onSelect }:
+    {
+      produtor: Produtores;
+      selected: boolean;
+      onSelect: () => void;
+    }) {
+    return (
+      <tr
+        onClick={onSelect}
+        className={selected ? 'selected-row' : ''}
+        style={{ cursor: 'pointer' }}
+      >
+        <td className="text-truncate">{produtor.nome}</td>
+        <td className="text-truncate">{produtor.telefone}</td>
+        <td className="text-truncate">{produtor.municipio}</td>
+        <td className="text-truncate">{produtor.comunidade}</td>
+        <td className="text-truncate">{produtor.familiar}</td>
+        <td className="text-truncate">{produtor.estado}</td>
+      </tr>
+    );
+  }
+
+  function selectLine(id: number) {
+    if (selectedId === id) {
+      setSelectedId(null);
+      setEditVisible(false);
+    } else {
+      setSelectedId(id);
+      setEditVisible(true);
+    }
+  }
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (!data || data.length === 0) return;
+
+      const currentIndex = data.findIndex(p => p.id === selectedId);
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+
+        let nextIndex;
+        if (currentIndex < data.length - 1 && currentIndex !== -1) {
+          nextIndex = currentIndex + 1;
+        } else {
+          nextIndex = 0;
+        }
+
+        const nextProdutor = data[nextIndex];
+        setSelectedId(nextProdutor.id);
+        setEditVisible(true);
+      }
+
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+
+        let prevIndex;
+        if (currentIndex > 0) {
+          prevIndex = currentIndex - 1;
+        } else {
+          prevIndex = data.length - 1;
+        }
+
+        const prevProdutor = data[prevIndex];
+        setSelectedId(prevProdutor.id);
+        setEditVisible(true);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [data, selectedId]);
+
+
   return (
     <div id='produtores'>
+      <LatBar />
 
-    <LatBar/>
-
-      <div id="work"> 
+      <div id="work">
         <header className='d-flex flex-column w-100 h-40 bg-light justify-content-start'>
-          <p id = "titlleProd" className='w-100 h-50 m-0'>Produtores</p>
-          
+          <p id="titlleProd" className='w-100 h-50 m-0'>Produtores</p>
+
           <nav className='w-100 h-80 d-flex flex-column gap-2'>
             <div>
               <p className='m-0'>Filtros</p>
@@ -52,20 +127,20 @@ export function ProdutorList() {
                   value={municipio}
                   onChange={(e) => setMunicipio(e.target.value)}
                 />
-
                 <DropDownEstados value={estado} onChange={setEstado} placeholder="Filtrar por estado" />
-
               </div>
             </form>
-
           </nav>
-
         </header>
-        
+
         <main className='d-flex flex-grow-1 flex-column justify-content-end'>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded buttonEdit">
-          <img className="d-flex editImg" src={edit} />
-        </button>
+
+          <button 
+            className={`bg-blue-500 hover:bg-emerald-500 ease-in-out duration-500 hover:scale-105 text-white font-bold rounded buttonEdit ${editVisible ? "show" : ""}`}
+            onClick={() => window.open("/", "_self")}
+            >
+            Editar <img className="d-flex editImg" src={edit} />
+          </button>
 
           <div className='tabelDiv'>
             <table className='tabela'>
@@ -94,35 +169,5 @@ export function ProdutorList() {
         </main>
       </div>
     </div>
-
   )
-
-  function ProdutorTable({produtor, selected, onSelect,}: 
-    {
-      produtor: Produtores;
-      selected: boolean;
-      onSelect: () => void;
-    }) 
-    {
-      return (
-        <tr
-          onClick={onSelect}
-          className={selected ? 'selected-row' : ''}
-          style={{
-            cursor: 'pointer',
-          }}>
-
-          <td className="text-truncate">{produtor.nome}</td>
-          <td className="text-truncate">{produtor.telefone}</td>
-          <td className="text-truncate">{produtor.municipio}</td>
-          <td className="text-truncate">{produtor.comunidade}</td>
-          <td className="text-truncate">{produtor.familiar}</td>
-          <td className="text-truncate">{produtor.estado}</td>
-        </tr>
-      );
-  }
-
-  function selectLine(id: number) {
-    setSelectedId(id);
-  }
 }

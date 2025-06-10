@@ -14,5 +14,6 @@
 
 .divDropdown{
     border-bottom-width: 1px;
+    border-color: black;
     width: 100%;
 }

@@ -42,17 +42,22 @@
 }
 
 .buttonEdit{
-  width: 38px;
+  width: 90px;
   height: 38px;
   position: relative;
-  left: 95%;
+  left: 93%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px;
+  visibility:hidden;
+}
+
+.buttonEdit.show {
+  visibility: visible;
 }
 
 .editImg{
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
 }

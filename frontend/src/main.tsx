@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './style/index.css'
 import { ProdutorList } from './ProdutorList.tsx'
 import { ProdutorCreate } from './ProdutorCreate.tsx';
+import { ProdutorEdit } from './ProdutorEdit.tsx';
 import App from "./App.tsx"
 
 
@@ -21,6 +22,12 @@ const router = createBrowserRouter([
     path: "/Produtores/Create",
     element: <ProdutorCreate />,
   },
+
+  {
+    path: "/Produtores/Edit/:id",
+    element: <ProdutorEdit />,
+  },
+
   {
     path: "/",
     element: <App />,
