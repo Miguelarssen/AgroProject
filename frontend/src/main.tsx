@@ -27,12 +27,6 @@ const router = createBrowserRouter([
     path: "/Produtores/Edit/:id",
     element: <ProdutorEdit />,
   },
-
-  {
-    path: "/",
-    element: <App />,
-  }
-
 ]);
 
 createRoot(document.getElementById("root")!).render(

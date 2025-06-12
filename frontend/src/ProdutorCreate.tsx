@@ -53,7 +53,7 @@ export function ProdutorCreate(){
         <LatBar/>
         <div id = "work">
           <header className='d-flex flex-column w-100 justify-content-start header'>
-            <p id = "titlleProd" className='w-100 h-100 m-0'>Produtores</p>
+            <p id = "titlleProd" className='w-100 h-100 m-0'>Cadastro de Produtor</p>
           </header>
 
           <main className='d-flex flex-grow-1 flex-column justify-content-start align-items-center'>

@@ -11,6 +11,20 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class ProdutorSpec {
 
+    public static Specification<Produtor> byId(Long id) {
+        return (root, query, builder) -> {
+            if (Objects.nonNull(id)) {
+                try {
+                    ;
+                    return builder.equal(root.get(Produtor_.id), id);
+                } catch (NumberFormatException e) {
+                    return null;
+                }
+            }
+            return null;
+        };
+    }
+
     public static Specification<Produtor> byNome(String nome) {
 
         return (root, query, builder) -> {

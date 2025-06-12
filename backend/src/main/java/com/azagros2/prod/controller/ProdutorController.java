@@ -40,7 +40,8 @@ public class ProdutorController {
     public ResponseEntity<List<ProdutorListagemDTO>> listar(   
         @RequestParam(required = false) String nome,
         @RequestParam(required = false) Estado estado,
-        @RequestParam(required = false) String municipio
+        @RequestParam(required = false) String municipio,
+        @RequestParam(required = false) Long id
 
     ){ 
 
@@ -55,7 +56,10 @@ public class ProdutorController {
         if (municipio != null) {
             spec = spec.and(ProdutorSpec.byMunicipio(municipio));
         }
-
+        if (id != null) {
+            spec = spec.and(ProdutorSpec.byId(id));
+        }
+        
         var produtores = repository.findAll(spec).stream().map(ProdutorListagemDTO::new).toList();
         return ResponseEntity.ok(produtores);
     }

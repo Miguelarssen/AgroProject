@@ -104,7 +104,7 @@ export function ProdutorList() {
 
       <div id="work">
         <header className='d-flex flex-column w-100 h-40 bg-light justify-content-start'>
-          <p id="titlleProd" className='w-100 h-50 m-0'>Produtores</p>
+          <p id="titlleProd" className='w-100 h-50 m-0'>Lista de Produtores</p>
 
           <nav className='w-100 h-80 d-flex flex-column gap-2'>
             <div>
@@ -137,7 +137,7 @@ export function ProdutorList() {
 
           <button 
             className={`bg-blue-500 hover:bg-emerald-500 ease-in-out duration-500 hover:scale-105 text-white font-bold rounded buttonEdit ${editVisible ? "show" : ""}`}
-            onClick={() => window.open("/", "_self")}
+            onClick={() => window.open("/Produtores/Edit/"+selectedId, "_self")}
             >
             Editar <img className="d-flex editImg" src={edit} />
           </button>
