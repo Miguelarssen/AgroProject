@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { DropDownEstados } from './components/Misc/DropDownEstados/DropDownEstados.tsx';
 import { Produtores } from './interface/Produtores.ts';
 import edit from "./assets/edit.png";
+import del from "./assets/bin.png";
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -107,10 +109,6 @@ export function ProdutorList() {
           <p id="titlleProd" className='w-100 h-50 m-0'>Lista de Produtores</p>
 
           <nav className='w-100 h-80 d-flex flex-column gap-2'>
-            <div>
-              <p className='m-0'>Filtros</p>
-            </div>
-
             <form className='d-flex justify-content-start px-3'>
               <div className='d-flex flex-row gap-3'>
                 <input
@@ -134,14 +132,21 @@ export function ProdutorList() {
         </header>
 
         <main className='d-flex flex-grow-1 flex-column justify-content-end'>
+          <div className='d-flex flex-row'>
+            <button 
+              className={`bg-blue-500 hover:bg-emerald-500 ease-in-out duration-500 hover:scale-105 text-white font-bold rounded buttonEdit ${editVisible ? "show" : ""}`}
+              onClick={() => window.open("/Produtores/Edit/"+selectedId, "_self")}
+              >
+              Editar <img className="d-flex editImg" src={edit} />
+            </button>
 
-          <button 
-            className={`bg-blue-500 hover:bg-emerald-500 ease-in-out duration-500 hover:scale-105 text-white font-bold rounded buttonEdit ${editVisible ? "show" : ""}`}
-            onClick={() => window.open("/Produtores/Edit/"+selectedId, "_self")}
-            >
-            Editar <img className="d-flex editImg" src={edit} />
-          </button>
-
+            <button 
+              className={`bg-red-500 hover:bg-red-700 ease-in-out duration-500 hover:scale-105 text-white font-bold rounded buttonEdit ${editVisible ? "show" : ""}`}
+              //onClick={() => window.open("/Produtores/Edit/"+selectedId, "_self")}
+              >
+              Deletar <img className="d-flex editImg" src={del} />
+            </button>
+          </div>
           <div className='tabelDiv'>
             <table className='tabela'>
               <thead>

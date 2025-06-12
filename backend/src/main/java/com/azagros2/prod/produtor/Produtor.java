@@ -50,6 +50,8 @@ public class Produtor {
     @Enumerated(EnumType.STRING)
     private Estado estado;
     private LocalDate dataCadastro;
+    private Boolean ativo;
+
 
     public void atualizarInfo(@Valid ProdutorAtualizaDTO dados){
         if (dados.nome() != null) {

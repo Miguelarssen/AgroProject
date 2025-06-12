@@ -45,11 +45,11 @@
   width: 90px;
   height: 38px;
   position: relative;
-  left: 93%;
+  left: 88%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px;
+  margin: 5px;
   visibility:hidden;
 }
 
