@@ -85,6 +85,12 @@ public class ProdutorController {
         return ResponseEntity.ok(new ProdutorResponseDTO(produtor));
     }
 
-    //@DeleteMapping
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity<ProdutorResponseDTO> deletar(@RequestBody @Valid Long Id){
+        var produtor = repository.getReferenceById(Id);
+        produtor.inativar(Id);
 
+        return ResponseEntity.ok(new ProdutorResponseDTO(produtor));
+    }
 }

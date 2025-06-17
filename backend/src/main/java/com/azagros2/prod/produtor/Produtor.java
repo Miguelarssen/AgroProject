@@ -71,4 +71,7 @@ public class Produtor {
         }
     }
 
+    public void inativar(@Valid Long Id){
+        this.ativo = false;
+    }
 }
