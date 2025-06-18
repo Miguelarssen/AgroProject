@@ -7,6 +7,8 @@ import { LatBar } from './components/Misc/LatBar/LatBar.tsx';
 import { useState, useEffect } from 'react';
 import { DropDownEstados } from './components/Misc/DropDownEstados/DropDownEstados.tsx';
 import { Produtores } from './interface/Produtores.ts';
+import { DeleteProdutor } from "./hooks/DeleteProdutor.ts";
+
 import edit from "./assets/edit.png";
 import del from "./assets/bin.png";
 
@@ -22,7 +24,16 @@ export function ProdutorList() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [editVisible, setEditVisible] = useState(false);
 
+  const { mutate } = DeleteProdutor()
   const { data } = useProdutor(nome, estado, municipio);
+
+  const deleteProdutor = () => {
+    if (selectedId !== null) {
+      mutate(selectedId);
+    } else {
+      console.warn("Nenhum produtor selecionado para deletar");
+    }
+  }
 
   function ProdutorTable({ produtor, selected, onSelect }:
     {
@@ -142,7 +153,7 @@ export function ProdutorList() {
 
             <button 
               className={`bg-red-500 hover:bg-red-700 ease-in-out duration-500 hover:scale-105 text-white font-bold rounded buttonEdit ${editVisible ? "show" : ""}`}
-              //onClick={() => window.open("/Produtores/Edit/"+selectedId, "_self")}
+              onClick={deleteProdutor}
               >
               Deletar <img className="d-flex editImg" src={del} />
             </button>

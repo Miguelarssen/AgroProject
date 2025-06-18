@@ -1,7 +1,6 @@
 package com.azagros2.prod.produtor.DTO;
 
 import com.azagros2.prod.produtor.Estado;
-import com.azagros2.prod.produtor.Produtor;
 
 import jakarta.validation.constraints.NotNull;
 

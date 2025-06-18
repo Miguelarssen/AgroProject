@@ -13,7 +13,8 @@ public record ProdutorListagemDTO(
     String municipio,
     String comunidade,
     Estado estado,
-    LocalDate dataCadastro
+    LocalDate dataCadastro,
+    Boolean ativo
 
 ) {
     public ProdutorListagemDTO(Produtor produtor){
@@ -24,8 +25,8 @@ public record ProdutorListagemDTO(
             produtor.getMunicipio(),
             produtor.getComunidade(),
             produtor.getEstado(),
-            produtor.getDataCadastro()
-
+            produtor.getDataCadastro(),
+            produtor.getAtivo()
         );
     }
 }

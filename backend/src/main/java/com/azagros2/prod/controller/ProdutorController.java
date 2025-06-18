@@ -23,6 +23,7 @@ import com.azagros2.prod.repository.ProdutorRepository;
 import com.azagros2.prod.repository.ProdutorSpec;
 import com.azagros2.prod.produtor.DTO.ProdutorAtualizaDTO;
 import com.azagros2.prod.produtor.DTO.ProdutorCadastroDTO;
+import com.azagros2.prod.produtor.DTO.ProdutorInativaDTO;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -45,7 +46,7 @@ public class ProdutorController {
 
     ){ 
 
-        Specification<Produtor> spec = Specification.where(null);
+        Specification<Produtor> spec = Specification.where(ProdutorSpec.isAtivo());
 
         if (nome != null && !nome.isEmpty()) {
             spec = spec.and(ProdutorSpec.byNome(nome));
@@ -71,7 +72,6 @@ public class ProdutorController {
         repository.save(produtor);
 
         var uri = uriBuilder.path("/produtores/{id}").buildAndExpand(produtor.getId()).toUri();
-        //cria a variável mapeada da hospedagem para dar return correto no remédio cadastrado
 
         return ResponseEntity.created(uri).body(new ProdutorResponseDTO(produtor));        
     }
@@ -87,9 +87,9 @@ public class ProdutorController {
 
     @DeleteMapping
     @Transactional
-    public ResponseEntity<ProdutorResponseDTO> deletar(@RequestBody @Valid Long Id){
-        var produtor = repository.getReferenceById(Id);
-        produtor.inativar(Id);
+    public ResponseEntity<ProdutorResponseDTO> deletar(@RequestBody @Valid ProdutorInativaDTO dados){
+        var produtor = repository.getReferenceById(dados.id());
+        produtor.inativar(dados);
 
         return ResponseEntity.ok(new ProdutorResponseDTO(produtor));
     }

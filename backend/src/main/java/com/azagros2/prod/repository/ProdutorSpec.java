@@ -67,9 +67,15 @@ public class ProdutorSpec {
         };
     }
 
+    public static Specification<Produtor> isAtivo() {
+        return (root, query, builder) -> builder.isTrue(root.get("ativo"));
+    }
+
     public static Specification<Produtor> porFiltros(String nome, String municipio, Estado estado) {
         return byNome(nome).
                 and(byMunicipio(municipio)).
-                and(byEstado(estado));
+                and(byEstado(estado)).
+                and(isAtivo());
     }
+
 }

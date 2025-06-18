@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.azagros2.prod.produtor.DTO.ProdutorAtualizaDTO;
 import com.azagros2.prod.produtor.DTO.ProdutorCadastroDTO;
+import com.azagros2.prod.produtor.DTO.ProdutorInativaDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -37,6 +38,7 @@ public class Produtor {
         this.familiar = dados.familiar();
         this.estado = dados.estado();
         this.dataCadastro = dados.dataCadastro();
+        this.ativo = true;
     }
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,7 +73,7 @@ public class Produtor {
         }
     }
 
-    public void inativar(@Valid Long Id){
+    public void inativar(@Valid ProdutorInativaDTO dados){
         this.ativo = false;
     }
 }

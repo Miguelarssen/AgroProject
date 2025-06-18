@@ -8,5 +8,5 @@ export interface Produtores{
     familiar: boolean,
     estado: string,
     dataCadastro: Date | null
- 
+    
 }   
